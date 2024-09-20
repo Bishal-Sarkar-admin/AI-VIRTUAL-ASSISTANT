@@ -40,6 +40,7 @@ function loadItems() {
     // Create a delete button for each item
     let deleteButton = document.createElement("button");
     deleteButton.id = "deleteBtn" + (index + 1); // Unique ID for delete button
+    deleteButton.className = "boo"; // Use className instead of class
     deleteButton.textContent = "Delete";
 
     // Append the delete button to the list item
