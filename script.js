@@ -92,6 +92,9 @@ function takeCommand(message) {
   } else if (message.includes("open whatsapp")) {
     speak("Opening Whatsapp");
     window.open("https://web.whatsapp.com/");
+  } else if (message.includes("open Gmail")) {
+    speak("Opening Gmail");
+    window.open("https://mail.google.com/mail/u/0/#inbox");
   } else if (message.includes("open calculator")) {
     speak("Opening Calculator");
     window.open("calculator://");

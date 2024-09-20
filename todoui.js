@@ -24,7 +24,7 @@ function loadItems() {
   // Save the updated array back to localStorage
   localStorage.setItem("items", JSON.stringify(futureItemsArray));
 
-  console.log("Future Items:", futureItemsArray);
+  // console.log("Future Items:", futureItemsArray);
 
   // Do something with sorted future items, e.g., display them or set them up for reminders
 
@@ -102,7 +102,7 @@ document.getElementById("add").addEventListener("click", function () {
 // Sort and refresh the list every 1 minute (60,000 milliseconds)
 setInterval(() => {
   loadItems();
-}, 60000); // 1 minute interval (60000 ms)
+}, 45000); // 1 minute interval (60000 ms)
 
 // Load items when the page loads
 window.onload = loadItems;
