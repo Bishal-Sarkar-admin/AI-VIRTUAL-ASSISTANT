@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI</title>
+    <link rel="shortcut icon" href="ailogo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <img src="ai3.jpeg" alt="ai" id="logo" />
+    <h1>
+      I'm <span class="name">Arion</span> , Your
+      <span class="vname">Virtual Assistant</span>
+    </h1>
+    <!-- <h1>
+      <span class="name"> Amara</span> –
+      <span class="vname"
+        >Meaning "grace" or "immortal," conveying both power and emotional
+        beauty</span
+      >
+      and
+      <span class="name">Hyperion</span> –
+      <span class="vname">Symbolizing higher intelligence and brilliance</span>
+    </h1> -->
+    <img src="voice.gif" alt="voice" id="voice" />
+    <button type="button" id="button">
+      <img id="mic" src="mic.png" alt="mic" /><span id="content"
+        >Click Here for talk to me</span
+      >
+    </button>
+    <div id="todoui">
+      <div id="inputui">
+        <label for="fname">Event Name:</label>
+        <input type="text" id="fname" name="fname" />
+        <label for="ftime">Event Time:</label>
+        <input type="time" id="ftime" name="ftime" />
+        <label for="fdata">Write text Data for the AI:</label>
+        <input type="text" id="fdata" name="fdata" />
+        <label for="flink">Link:</label>
+        <input type="link" id="flink" name="flink" />
+        <button id="add" class="boo" type="button">Add</button>
+      </div>
+
+      <ul id="todo"></ul>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="todoui.js"></script>
+    <script src="localstorage.js"></script>
+  </body>
+</html>
