@@ -80,6 +80,37 @@ h1 {
   min-width: 450px;
   border-radius: 12px;
 }
+@media only screen and (max-width: 600px) {
+  #todoui {
+    min-width: 310px;
+  }
+  h1 {
+    font-size: 1.2rem;
+  }
+  .name {
+    font-size: 1.5rem;
+  }
+  .vname {
+    font-size: 1.5rem;
+  }
+  #content {
+    font-size: 0.95rem;
+  }
+  #mic {
+    width: 25px;
+  }
+  #button {
+    width: 50%;
+    height: auto;
+  }
+  #voice {
+    width: 35px;
+  }
+  #logo {
+    margin-top: 15px;
+    width: 40vw;
+  }
+}
 #todo {
   list-style-type: none;
 }
