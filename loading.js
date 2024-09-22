@@ -33,12 +33,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Function to hide the loading screen
+  // Function to hide the loading screen with animation
   function hideLoadingScreen() {
     const loadingScreen = document.getElementById("loading-screen");
-    loadingScreen.style.display = "none"; // Hide the loading screen
+    loadingScreen.classList.add("hidden"); // Add 'hidden' class to trigger the transition
+
+    // After transition, set display to none
+    setTimeout(() => {
+      loadingScreen.style.display = "none";
+    }, 500); // Match the duration of the CSS transition (0.5s)
   }
 
   // Call checkPermissions on page load
   checkPermissions();
+});
+
+// Close button functionality with speech recognition starting
+let close = document.querySelector("#close");
+let loadingScreen = document.querySelector("#loading-screen");
+close.addEventListener("click", () => {
+  loadingScreen.classList.add("hidden"); // Trigger fade-out animation
+
+  // After transition, hide the element completely
+  setTimeout(() => {
+    loadingScreen.style.display = "none";
+  }, 500); // 500ms to match CSS transition duration
 });

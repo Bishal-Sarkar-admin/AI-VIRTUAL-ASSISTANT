@@ -56,5 +56,5 @@ function specialtakeCommand() {
   }
 }
 
-// Set up an interval to check every 8 seconds (8000 milliseconds)
-setInterval(specialtakeCommand, 8000);
+// Set up an interval to check every 5000 milliseconds
+setInterval(specialtakeCommand, 5000);

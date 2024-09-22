@@ -102,7 +102,7 @@ document.getElementById("add").addEventListener("click", function () {
 // Sort and refresh the list every 1 minute (60,000 milliseconds)
 setInterval(() => {
   loadItems();
-}, 45000); // 1 minute interval (60000 ms)
+}, 60000); // 1 minute interval (60000 ms)
 
 // Load items when the page loads
 window.onload = loadItems;
