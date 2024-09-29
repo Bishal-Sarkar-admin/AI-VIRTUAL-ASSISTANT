@@ -29,15 +29,18 @@ function speak(text) {
     text_speak.lang = "en-GB";
 
     text_speak.onstart = () => {
-      console.log("Speech started");
+      btn.style.display = "none";
+      voice.style.display = "block";
     };
 
     text_speak.onend = () => {
-      console.log("Speech finished");
+      btn.style.display = "flex";
+      voice.style.display = "none";
     };
 
     text_speak.onerror = (e) => {
-      console.error("Speech synthesis error:", e);
+      btn.style.display = "flex";
+      voice.style.display = "none";
     };
 
     window.speechSynthesis.speak(text_speak);

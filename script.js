@@ -18,6 +18,4 @@ recognition.onresult = (event) => {
 
 btn.addEventListener("click", () => {
   recognition.start();
-  btn.style.display = "none";
-  voice.style.display = "block";
 });
