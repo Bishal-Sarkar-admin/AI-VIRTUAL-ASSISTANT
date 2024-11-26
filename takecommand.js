@@ -112,21 +112,21 @@ function takeCommand(message) {
       action: () => sendCommand("close", "chatgpt"),
     },
     {
-      patterns: [/open google/],
+      patterns: [/^open google$/i, /^open google.$/i],
       response: "opening google",
       action: () => window.open("https://www.google.com/"),
     },
     {
-      patterns: [/close google/],
+      patterns: [/^close google$/i, /^close google.$/i],
       action: () => sendCommand("close", "google"),
     },
     {
-      patterns: [/open google drive/],
+      patterns: [/^open google drive$/i, /^open google drive.$/i],
       response: "opening google drive",
       action: () => window.open("https://drive.google.com/"),
     },
     {
-      patterns: [/close google drive/],
+      patterns: [/^close google drive$/i, /^close google drive.$/i],
       action: () => sendCommand("close", "google drive"),
     },
     {
@@ -139,12 +139,12 @@ function takeCommand(message) {
       action: () => sendCommand("close", "photos"),
     },
     {
-      patterns: [/open google keep/],
+      patterns: [/^open google keep$/i, /^open google keep.$/i],
       response: "opening google keep",
       action: () => window.open("https://keep.google.com/"),
     },
     {
-      patterns: [/close google keep/],
+      patterns: [/^close google keep$/i, /^close google keep.$/i],
       action: () => sendCommand("close", "google keep"),
     },
     {
