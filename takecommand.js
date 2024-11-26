@@ -144,7 +144,7 @@ function takeCommand(message) {
       },
     },
     {
-      patterns: [/search (.+)/, /google (.+)/],
+      patterns: [/search (.+)/],
       response: (match) => `Searching for ${match[1]} on Google.`,
       action: (match) =>
         window.open(
