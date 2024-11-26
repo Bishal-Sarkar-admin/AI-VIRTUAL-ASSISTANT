@@ -1,6 +1,7 @@
 function sendCommand(command, website) {
   const message = { command, website };
   window.postMessage(message, "https://bishal-sarkar-admin.github.io");
+  console.log(command, website);
 }
 
 function takeCommand(message) {
