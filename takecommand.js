@@ -7,7 +7,23 @@ function sendCommand(command, website) {
 function normalizeInput(data) {
   return data.trim().replace(/\s*\.\s*$/, ""); // Remove trailing dots and trim extra spaces
 }
+// Function to filter "play" commands and extract the song and platform
+function filterPlay(data) {
+  const normalizedData = normalizeInput(data); // Normalize the input first
+  const match = normalizedData.match(/^play\s+(.+)\s+on\s+(\w+)$/i); // Match "play <song> on <platform>"
 
+  if (match) {
+    const song = match[1].trim();
+    const platform = match[2].trim().toLowerCase();
+
+    // Send the open command with song and platform
+    sendCommand("open1", platform, song);
+
+    return song + " on " + platform; // Return the song and platform as an object
+  }
+
+  return null; // Return null if no match
+}
 // Function to filter "open" commands and extract the service name
 function filteropen(data) {
   const normalizedData = normalizeInput(data); // Normalize the input first
@@ -102,6 +118,10 @@ function takeCommand(message) {
       response: getDate(),
     },
     {
+      patterns: [/^play/],
+      response: `Playing ${filterPlay(normalInput)}.`,
+    },
+    {
       patterns: [/^open/],
       response: `Opening ${filteropen(normalInput)}.`,
     },
@@ -118,7 +138,7 @@ function takeCommand(message) {
       response: tellJoke(),
     },
     {
-      patterns: [/open youtube/, /play youtube/],
+      patterns: [/open youtube/],
       response: "Opening YouTube.",
       action: () => window.open("https://www.youtube.com", "_blank"),
     },
