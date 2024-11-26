@@ -3,8 +3,36 @@ function sendCommand(command, website) {
   window.postMessage(message, "https://bishal-sarkar-admin.github.io");
   console.log(command, website);
 }
+// Function to clean and normalize input
+function normalizeInput(data) {
+  return data.trim().replace(/\s*\.\s*$/, ""); // Remove trailing dots and trim extra spaces
+}
+
+// Function to filter "open" commands and extract the service name
+function filteropen(data) {
+  const normalizedData = normalizeInput(data); // Normalize the input first
+  const match = normalizedData.match(/^open\s+(.*)$/i); // Match "open" followed by the service name
+  if (match) {
+    sendCommand("open", match[1].trim());
+    return match[1].trim(); // Return the service name, trimmed of extra spaces
+  }
+  return null; // Return null if no match
+}
+
+// Function to filter "close" commands and extract the service name
+function filterclose(data) {
+  const normalizedData = normalizeInput(data); // Normalize the input first
+  const match = normalizedData.match(/^close\s+(.*)$/i); // Match "close" followed by the service name
+  if (match) {
+    sendCommand("close", match[1].trim());
+    return match[1].trim(); // Return the service name, trimmed of extra spaces
+  }
+  return null; // Return null if no match
+}
 
 function takeCommand(message) {
+  const normalInput = normalizeInput(message);
+
   btn.style.display = "flex";
   voice.style.display = "none";
 
@@ -57,126 +85,18 @@ function takeCommand(message) {
       patterns: [/time/, /what is the time/, /tell me the time/],
       response: getTime(),
     },
-    {
-      patterns: [/open whatsapp/],
-      response: "opening whatsapp web",
-      action: () => window.open("https://web.whatsapp.com/"),
-    },
-    {
-      patterns: [/close whatsapp/],
-      action: () => sendCommand("close", "whatsapp"),
-    },
-    {
-      patterns: [/open youtube/],
-      response: "opening youtube",
-      action: () => window.open("https://www.youtube.com/"),
-    },
-    {
-      patterns: [/close youtube/],
-      action: () => sendCommand("close", "youtube"),
-    },
-    {
-      patterns: [/open github/],
-      response: "opening github",
-      action: () => window.open("https://github.com/Bishal-Sarkar-admin"),
-    },
-    {
-      patterns: [/close github/],
-      action: () => sendCommand("close", "github"),
-    },
-    {
-      patterns: [/open instagram/],
-      response: "opening instagram",
-      action: () => window.open("https://www.instagram.com/instragram.me2023/"),
-    },
-    {
-      patterns: [/close instagram/],
-      action: () => sendCommand("close", "instagram"),
-    },
-    {
-      patterns: [/open facebook/],
-      response: "opening facebook",
-      action: () => window.open("https://www.facebook.com/"),
-    },
-    {
-      patterns: [/close facebook/],
-      action: () => sendCommand("close", "facebook"),
-    },
-    {
-      patterns: [/open chatgpt/],
-      response: "opening chatgpt",
-      action: () => window.open("https://chatgpt.com/"),
-    },
-    {
-      patterns: [/close chatgpt/],
-      action: () => sendCommand("close", "chatgpt"),
-    },
-    {
-      patterns: [/^open google$/i, /^open google.$/i],
-      response: "opening google",
-      action: () => window.open("https://www.google.com/"),
-    },
-    {
-      patterns: [/^close google$/i, /^close google.$/i],
-      action: () => sendCommand("close", "google"),
-    },
-    {
-      patterns: [/^open google drive$/i, /^open google drive.$/i],
-      response: "opening google drive",
-      action: () => window.open("https://drive.google.com/"),
-    },
-    {
-      patterns: [/^close google drive$/i, /^close google drive.$/i],
-      action: () => sendCommand("close", "google drive"),
-    },
-    {
-      patterns: [/open photos/],
-      response: "opening photos",
-      action: () => window.open("https://photos.google.com/"),
-    },
-    {
-      patterns: [/close photos/],
-      action: () => sendCommand("close", "photos"),
-    },
-    {
-      patterns: [/^open google keep$/i, /^open google keep.$/i],
-      response: "opening google keep",
-      action: () => window.open("https://keep.google.com/"),
-    },
-    {
-      patterns: [/^close google keep$/i, /^close google keep.$/i],
-      action: () => sendCommand("close", "google keep"),
-    },
-    {
-      patterns: [/open blackbox/],
-      response: "opening blackbox",
-      action: () => window.open("https://www.blackbox.ai/"),
-    },
-    {
-      patterns: [/close blackbox/],
-      action: () => sendCommand("close", "blackbox"),
-    },
-    {
-      patterns: [/open gmail/],
-      response: "opening gmail",
-      action: () => window.open("https://mail.google.com/"),
-    },
-    {
-      patterns: [/close gmail/],
-      action: () => sendCommand("close", "gmail"),
-    },
-    {
-      patterns: [/open telegram/],
-      response: "opening telegram",
-      action: () => window.open("https://web.telegram.org/"),
-    },
-    {
-      patterns: [/close telegram/],
-      action: () => sendCommand("close", "telegram"),
-    },
+
     {
       patterns: [/date/, /what is the date/, /tell me today's date/],
       response: getDate(),
+    },
+    {
+      patterns: [/^open/],
+      response: `Opening ${filteropen(normalInput)}.`,
+    },
+    {
+      patterns: [/^close/],
+      response: `Closing ${filterclose(normalInput)}.`,
     },
     {
       patterns: [/joke/, /make me laugh/, /tell me something funny/],
