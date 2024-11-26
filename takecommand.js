@@ -1,3 +1,8 @@
+function sendCommand(command, website) {
+  const message = { command, website };
+  window.postMessage(message, "https://bishal-sarkar-admin.github.io");
+}
+
 function takeCommand(message) {
   btn.style.display = "flex";
   voice.style.display = "none";
@@ -5,75 +10,264 @@ function takeCommand(message) {
   // Normalize message
   message = message.trim().toLowerCase();
 
-  // General responses
-  if (message.includes("hello") || message.includes("hey")) {
-    speak("Hello Sir, What can I help you with?");
-  } else if (message.includes("how are you")) {
-    speak("I am doing great, thanks for asking.");
-  } else if (message.includes("who are you")) {
-    speak("I am a virtual assistant, created by Bishal Sir.");
-  }
-  // Open web services, no app URIs for Chrome
-  else if (message.includes("open youtube")) {
-    speak("Opening YouTube");
-    window.open("https://www.youtube.com", "_blank");
-  } else if (message.includes("open whatsapp")) {
-    speak("Opening WhatsApp Web");
-    window.open("https://web.whatsapp.com/", "_blank");
-  } else if (message.includes("open gmail")) {
-    speak("Opening Gmail");
-    window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
-  } else if (message.includes("open telegram")) {
-    speak("Opening Telegram Web");
-    window.open("https://web.telegram.org/a/", "_blank");
-  } else if (message.includes("open instagram")) {
-    speak("Opening Instagram");
-    window.open("https://www.instagram.com/", "_blank");
-  } else if (message.includes("open messenger")) {
-    speak("Opening Messenger");
-    window.open("https://www.messenger.com/", "_blank");
-  }
-  // Other commands
-  else if (message.includes("open calculator")) {
-    speak("Opening Calculator");
-    window.open("https://www.google.com/search?q=calculator", "_blank");
-  } else if (message.includes("open google")) {
-    speak("Opening Google");
-    window.open("https://www.google.com", "_blank");
-  } else if (message.includes("open geeksforgeeks")) {
-    speak("Opening Geeksforgeeks");
-    window.open("https://www.geeksforgeeks.org/", "_blank");
-  } else if (message.includes("open leetcode")) {
-    speak("Opening Leetcode");
-    window.open("https://leetcode.com/", "_blank");
-  }
-  // Time and date
-  else if (message.includes("time")) {
-    let time = new Date().toLocaleString(undefined, {
+  // Utility Functions
+  const getTime = () => {
+    const time = new Date().toLocaleString(undefined, {
       hour: "numeric",
       minute: "numeric",
+      second: "numeric",
+      hour12: true,
     });
-    speak(time);
-  } else if (message.includes("date")) {
-    let date = new Date().toLocaleString(undefined, {
+    return `The current time is ${time}`;
+  };
+
+  const getDate = () => {
+    const date = new Date().toLocaleString(undefined, {
       day: "numeric",
-      month: "short",
+      month: "long",
+      year: "numeric",
     });
-    speak(date);
+    return `Today's date is ${date}`;
+  };
+
+  const tellJoke = () => {
+    const jokes = [
+      "Why don’t skeletons fight each other? They don’t have the guts!",
+      "What do you call cheese that isn't yours? Nacho cheese!",
+      "Why couldn’t the bicycle stand up by itself? It was two-tired.",
+      "What did the ocean say to the beach? Nothing, it just waved.",
+      "Why did the scarecrow win an award? Because he was outstanding in his field!",
+    ];
+    return jokes[Math.floor(Math.random() * jokes.length)];
+  };
+
+  // Intent Map (JSON-based structure)
+  const intents = [
+    {
+      patterns: [/who are you(\?|$)/, /what are you/],
+      response:
+        "I am your intelligent assistant, Created by Mr. Bishal Sarkar. I can help you with various tasks.",
+    },
+    {
+      patterns: [/how are you(\?|$)/],
+      response: "I'm functioning perfectly. How can I assist you today?",
+    },
+    {
+      patterns: [/time/, /what is the time/, /tell me the time/],
+      response: getTime(),
+    },
+    {
+      patterns: [/open whatsapp/],
+      response: "opening whatsapp web",
+      action: () => window.open("https://web.whatsapp.com/"),
+    },
+    {
+      patterns: [/close whatsapp/i],
+      action: () => sendCommand("close", "whatsapp"),
+    },
+    {
+      patterns: [/open youtube/i],
+      response: "opening youtube",
+      action: () => window.open("https://www.youtube.com/"),
+    },
+    {
+      patterns: [/close youtube/i],
+      action: () => sendCommand("close", "youtube"),
+    },
+    {
+      patterns: [/open github/i],
+      response: "opening github",
+      action: () => window.open("https://github.com/Bishal-Sarkar-admin"),
+    },
+    {
+      patterns: [/close github/i],
+      action: () => sendCommand("close", "github"),
+    },
+    {
+      patterns: [/open instagram/i],
+      response: "opening instagram",
+      action: () => window.open("https://www.instagram.com/instragram.me2023/"),
+    },
+    {
+      patterns: [/close instagram/i],
+      action: () => sendCommand("close", "instagram"),
+    },
+    {
+      patterns: [/open facebook/i],
+      response: "opening facebook",
+      action: () => window.open("https://www.facebook.com/"),
+    },
+    {
+      patterns: [/close facebook/i],
+      action: () => sendCommand("close", "facebook"),
+    },
+    {
+      patterns: [/open chatgpt/i],
+      response: "opening chatgpt",
+      action: () => window.open("https://chatgpt.com/"),
+    },
+    {
+      patterns: [/close chatgpt/i],
+      action: () => sendCommand("close", "chatgpt"),
+    },
+    {
+      patterns: [/open google/i],
+      response: "opening google",
+      action: () => window.open("https://www.google.com/"),
+    },
+    {
+      patterns: [/close google/i],
+      action: () => sendCommand("close", "google"),
+    },
+    {
+      patterns: [/open google drive/i],
+      response: "opening google drive",
+      action: () => window.open("https://drive.google.com/"),
+    },
+    {
+      patterns: [/close google drive/i],
+      action: () => sendCommand("close", "google drive"),
+    },
+    {
+      patterns: [/open photos/i],
+      response: "opening photos",
+      action: () => window.open("https://photos.google.com/"),
+    },
+    {
+      patterns: [/close photos/i],
+      action: () => sendCommand("close", "photos"),
+    },
+    {
+      patterns: [/open google keep/i],
+      response: "opening google keep",
+      action: () => window.open("https://keep.google.com/"),
+    },
+    {
+      patterns: [/close google keep/i],
+      action: () => sendCommand("close", "google keep"),
+    },
+    {
+      patterns: [/open blackbox/i],
+      response: "opening blackbox",
+      action: () => window.open("https://www.blackbox.ai/"),
+    },
+    {
+      patterns: [/close blackbox/i],
+      action: () => sendCommand("close", "blackbox"),
+    },
+    {
+      patterns: [/open gmail/i],
+      response: "opening gmail",
+      action: () => window.open("https://mail.google.com/"),
+    },
+    {
+      patterns: [/close gmail/i],
+      action: () => sendCommand("close", "gmail"),
+    },
+    {
+      patterns: [/open telegram/i],
+      response: "opening telegram",
+      action: () => window.open("https://web.telegram.org/"),
+    },
+    {
+      patterns: [/close telegram/i],
+      action: () => sendCommand("close", "telegram"),
+    },
+    {
+      patterns: [/date/, /what is the date/, /tell me today's date/],
+      response: getDate(),
+    },
+    {
+      patterns: [/joke/, /make me laugh/, /tell me something funny/],
+      response: tellJoke(),
+    },
+    {
+      patterns: [/open youtube/, /play youtube/],
+      response: "Opening YouTube.",
+      action: () => window.open("https://www.youtube.com", "_blank"),
+    },
+    {
+      patterns: [/ai (.+)/, /arion (.+)/],
+      response: (match) => `Searching for ${match[1]} on Google.`,
+      action: async (match) => {
+        const queryResult = await query({
+          inputs: match[1],
+        });
+
+        console.log(queryResult); // Log the entire response for debugging
+
+        // Extract the generated text (check the response structure)
+        const generatedText = queryResult[0]?.generated_text;
+
+        if (generatedText) {
+          const cleanedText = generatedText.replace(/[\n\s]+/g, " ").trim();
+          speak(cleanedText); // Output the cleaned text
+        } else {
+          console.error("No generated text found in the response.");
+        }
+      },
+    },
+    {
+      patterns: [/search (.+)/, /google (.+)/],
+      response: (match) => `Searching for ${match[1]} on Google.`,
+      action: (match) =>
+        window.open(
+          `https://www.google.com/search?q=${encodeURIComponent(match[1])}`,
+          "_blank"
+        ),
+    },
+    {
+      patterns: [/shutdown/, /exit/, /close/],
+      response: "Goodbye! Have a great day.",
+      action: () => {
+        speak("Goodbye! Have a great day.");
+        if (window.opener) {
+          window.close();
+        } else {
+          alert(
+            "I cannot close the window directly. Please close it manually."
+          );
+        }
+      },
+    },
+  ];
+
+  // Match Intent
+  let matchedIntent = null;
+  let matchData = null;
+
+  for (const intent of intents) {
+    for (const pattern of intent.patterns) {
+      const match = message.match(pattern);
+      if (match) {
+        matchedIntent = intent;
+        matchData = match;
+        break;
+      }
+    }
+    if (matchedIntent) break;
   }
-  // Open ChatGPT
-  else if (
-    message.includes("open chatgpt") ||
-    message.includes("open chat gpt")
-  ) {
-    speak("Opening ChatGPT");
-    window.open("https://chat.openai.com/", "_blank"); // Updated URL
-  }
-  // Default: Google search
-  else {
-    speak(`Here are the search results for ${message}`);
+
+  // Respond to Matched Intent
+  if (matchedIntent) {
+    const response =
+      typeof matchedIntent.response === "function"
+        ? matchedIntent.response(matchData)
+        : matchedIntent.response;
+
+    speak(response);
+
+    // Perform action if available
+    if (matchedIntent.action) {
+      matchedIntent.action(matchData);
+    }
+  } else {
+    // Fallback: Intelligent suggestion
+    const data = message;
+    speak(`Searching for ${data} on Google.`);
+
     window.open(
-      `https://www.google.com/search?q=${encodeURIComponent(message)}`,
+      `https://www.google.com/search?q=${encodeURIComponent(data)}`,
       "_blank"
     );
   }
