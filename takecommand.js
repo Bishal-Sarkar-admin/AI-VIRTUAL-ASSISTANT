@@ -30,15 +30,26 @@ function filterclose(data) {
   return null; // Return null if no match
 }
 
-function takeCommand(message) {
-  const normalInput = normalizeInput(message);
+// Function to filter "tab clear" commands and extract the service name
+function filterTabClose(data) {
+  const normalizedData = normalizeInput(data); // Normalize the input first
+  const match = normalizedData.match(/^(.*)\s*clear$/i); // Match the service name followed by "clear" at the end
 
+  if (match) {
+    sendCommand("clear", match[1].trim()); // Send the command to close the service
+    return match[1].trim(); // Return the service name, trimmed of extra spaces
+  }
+
+  return null; // Return null if no match
+}
+
+function takeCommand(message) {
   btn.style.display = "flex";
   voice.style.display = "none";
 
   // Normalize message
   message = message.trim().toLowerCase();
-
+  const normalInput = normalizeInput(message);
   // Utility Functions
   const getTime = () => {
     const time = new Date().toLocaleString(undefined, {
@@ -97,6 +108,10 @@ function takeCommand(message) {
     {
       patterns: [/^close/],
       response: `Closing ${filterclose(normalInput)}.`,
+    },
+    {
+      patterns: [/clear.$/],
+      response: `Closing ${filterTabClose(normalInput)}.`,
     },
     {
       patterns: [/joke/, /make me laugh/, /tell me something funny/],
