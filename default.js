@@ -36,6 +36,7 @@ function speak(text) {
     text_speak.onend = () => {
       btn.style.display = "flex";
       voice.style.display = "none";
+      recognition.start();
     };
 
     text_speak.onerror = (e) => {

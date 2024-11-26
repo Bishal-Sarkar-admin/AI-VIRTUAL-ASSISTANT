@@ -1,17 +1,17 @@
-let btn = document.querySelector("#button");
-let content = document.querySelector("#content");
-let voice = document.querySelector("#voice");
+const btn = document.querySelector("#button");
+const content = document.querySelector("#content");
+const voice = document.querySelector("#voice");
 
 // Add event listener to the button
 
-let speechRecognition =
+const speechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 
-let recognition = new speechRecognition();
+const recognition = new speechRecognition();
 
 recognition.onresult = (event) => {
-  let currentIndex = event.resultIndex;
-  let transcript = event.results[currentIndex][0].transcript;
+  const currentIndex = event.resultIndex;
+  const transcript = event.results[currentIndex][0].transcript;
   content.innerText = transcript;
   takeCommand(transcript.toLowerCase());
 };
