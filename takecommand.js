@@ -17,7 +17,7 @@ function filterPlay(data) {
     const platform = match[2].trim().toLowerCase();
 
     // Send the open command with song and platform
-    sendCommand("open1", platform, song);
+    sendCommand("open", platform, song);
 
     return song + " on " + platform; // Return the song and platform as an object
   }
