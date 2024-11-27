@@ -3,6 +3,12 @@ function sendCommand(command, website) {
   window.postMessage(message, "https://bishal-sarkar-admin.github.io");
   console.log(command, website);
 }
+
+function sendCommandsong(command, platform, song) {
+  const message = { command, platform, song };
+  window.postMessage(message, "https://bishal-sarkar-admin.github.io");
+  console.log(command, platform, song);
+}
 // Function to clean and normalize input
 function normalizeInput(data) {
   return data.trim().replace(/\s*\.\s*$/, ""); // Remove trailing dots and trim extra spaces
@@ -17,7 +23,7 @@ function filterPlay(data) {
     const platform = match[2].trim().toLowerCase();
 
     // Send the open command with song and platform
-    sendCommand("play", platform, song);
+    sendCommandsong("play", platform, song);
 
     return song + " on " + platform; // Return the song and platform as an object
   }
