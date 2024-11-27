@@ -35,19 +35,21 @@ function filteropen(data) {
   const normalizedData = normalizeInput(data); // Normalize the input first
   const match = normalizedData.match(/^open\s+(.*)$/i); // Match "open" followed by the service name
   if (match) {
-    sendCommand("open", match[1].trim());
+    sendCommand("open", { platform: match[1].trim() }); // Use platform instead of website
     return match[1].trim(); // Return the service name, trimmed of extra spaces
   }
   return null; // Return null if no match
 }
 
 // Function to filter "close" commands and extract the service name
+// Function to filter "close" commands and extract the service name
 function filterclose(data) {
   const normalizedData = normalizeInput(data); // Normalize the input first
   const match = normalizedData.match(/^close\s+(.*)$/i); // Match "close" followed by the service name
   if (match) {
-    sendCommand("close", match[1].trim());
-    return match[1].trim(); // Return the service name, trimmed of extra spaces
+    const serviceName = match[1].trim(); // Extract and trim the service name
+    sendCommand("close", { platform: serviceName }); // Use "platform" as the key for consistency
+    return serviceName; // Return the service name
   }
   return null; // Return null if no match
 }
