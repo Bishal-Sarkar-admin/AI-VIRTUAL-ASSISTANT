@@ -17,7 +17,7 @@ function filterPlay(data) {
     const platform = match[2].trim().toLowerCase();
 
     // Send the open command with song and platform
-    sendCommand("open", platform, song);
+    sendCommand("play", platform, song);
 
     return song + " on " + platform; // Return the song and platform as an object
   }
@@ -130,7 +130,7 @@ function takeCommand(message) {
       response: `Closing ${filterclose(normalInput)}.`,
     },
     {
-      patterns: [/clear.$/],
+      patterns: [/clear$/, /clear.$/],
       response: `Closing ${filterTabClose(normalInput)}.`,
     },
     {
