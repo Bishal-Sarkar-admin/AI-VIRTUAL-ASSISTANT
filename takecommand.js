@@ -6,7 +6,7 @@ function takeCommand(command) {
     const platform = command.replace("open ", "").trim();
     const url = getUrl(platform);
     speak(`Opening ${platform}`);
-    window.open(url, "_blank"); // Open in a new tab
+    window.open(url); // Open in a new tab
   } else if (command.startsWith("close")) {
     console.warn(
       "Close command is not supported directly due to browser security."
@@ -52,6 +52,63 @@ function getUrl(platform) {
     youtube: "https://www.youtube.com/",
     spotify: "https://open.spotify.com/",
     "chat gpt": "https://chatgpt.com/",
+    // System and Browser-specific URLs
+    extension: "chrome://extensions/",
+    setting: "chrome://settings/",
+    download: "chrome://downloads/",
+    bookmark: "chrome://bookmarks/",
+    history: "chrome://history/",
+    flags: "chrome://flags/",
+    passwords: "chrome://settings/passwords",
+    "clear cache": "chrome://settings/clearBrowserData",
+    "site settings": "chrome://settings/content",
+    "complete coding":
+      "https://completecoding.graphy.com/s/courses/6642cc1b7070a1379b4c6d22/take",
+    // Job-related Websites
+    "linkedin jobs": "https://www.linkedin.com/jobs/",
+    "monster india": "https://www.monsterindia.com/",
+    "glassdoor jobs": "https://www.glassdoor.com/Job/",
+    "government job": "https://www.ncs.gov.in/",
+    "angel list": "https://angel.co/",
+
+    job: "https://completecoding.graphy.com/t/u/community-chat?entityExternalId=6642cc1b7070a1379b4c6d22&channel=mern-job-support",
+    // Productivity and Utilities
+    "google keep": "https://keep.google.com/",
+    "google drive": "https://drive.google.com/",
+    "google docs": "https://docs.google.com/",
+    "google sheets": "https://sheets.google.com/",
+    photos: "https://photos.google.com/",
+    "google calendar": "https://calendar.google.com/",
+
+    leetcode: "https://leetcode.com/",
+    "geeks for geeks": "https://www.geeksforgeeks.org/",
+    coursera: "https://www.coursera.org/",
+    notion: "https://www.notion.so/",
+    "mozilla developer": "https://developer.mozilla.org/",
+    "google scholar": "https://scholar.google.com/",
+
+    // Communication and Social Media
+    whatsapp: "https://web.whatsapp.com/",
+    telegram: "https://web.telegram.org/",
+
+    // News and Information
+    "google news": "https://news.google.com/",
+    cnn: "https://edition.cnn.com/",
+    timesofindia: "https://timesofindia.indiatimes.com/",
+
+    // Entertainment and Streaming
+
+    "amazon prime video": "https://www.primevideo.com/",
+
+    // Finance and Banking
+    "google pay": "https://pay.google.com/",
+    groww: "https://groww.in/",
+
+    // Miscellaneous
+
+    "google maps": "https://maps.google.com/",
+
+    "amazon kindle": "https://read.amazon.com/",
   };
   return urlMap[platform] || `https://www.${platform}.com/`;
 }
