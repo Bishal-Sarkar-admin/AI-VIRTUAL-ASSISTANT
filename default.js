@@ -1,47 +1,44 @@
-//wishme function
-
+// Function: Greet the user based on the time of day
 function wishMe() {
   let date = new Date();
   let hour = date.getHours();
   if (hour >= 5 && hour < 12) {
-    speak("Good Morning Sir");
+    speak("Good Morning, Sir!");
   } else if (hour >= 12 && hour < 18) {
-    speak("Good Afternoon Sir");
+    speak("Good Afternoon, Sir!");
   } else if (hour >= 18 && hour < 22) {
-    speak("Good Evening Sir");
+    speak("Good Evening, Sir!");
   } else {
-    speak("Good Night Sir");
+    speak("Good Night, Sir!");
   }
 }
-window.addEventListener("load", () => {
-  wishMe();
-});
 
-//speak function
+// Function: Speak text using the SpeechSynthesis API
 function speak(text) {
+  console.log(text);
   if ("speechSynthesis" in window) {
-    window.speechSynthesis.cancel(); // Clears the queue
+    window.speechSynthesis.cancel(); // Clears any ongoing speech
     let text_speak = new SpeechSynthesisUtterance(text);
 
-    text_speak.rate = 1;
-    text_speak.pitch = 1;
-    text_speak.volume = 1;
-    text_speak.lang = "en-GB";
+    text_speak.rate = 1; // Speech rate
+    text_speak.pitch = 1; // Speech pitch
+    text_speak.volume = 1; // Volume level
+    text_speak.lang = "en-GB"; // Language setting
 
     text_speak.onstart = () => {
       btn.style.display = "none";
-      voice.style.display = "block";
+      voice.style.display = "block"; // Show the voice indicator
     };
 
     text_speak.onend = () => {
       btn.style.display = "flex";
-      voice.style.display = "none";
-      recognition.start();
+      voice.style.display = "none"; // Hide the voice indicator
+      recognition.start(); // Restart recognition for continuous commands
     };
 
-    text_speak.onerror = (e) => {
+    text_speak.onerror = () => {
       btn.style.display = "flex";
-      voice.style.display = "none";
+      voice.style.display = "none"; // Hide the voice indicator in case of errors
     };
 
     window.speechSynthesis.speak(text_speak);
@@ -49,4 +46,8 @@ function speak(text) {
     console.error("SpeechSynthesis API is not supported in this browser.");
   }
 }
-//
+
+// Automatically call wishMe when the page loads
+window.addEventListener("load", () => {
+  wishMe();
+});
